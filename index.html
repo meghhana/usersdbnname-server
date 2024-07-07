@@ -1,43 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Management</title>
+    <title>user Management</title>
 </head>
 <body>
 <center>
-    <h3>Employee Management Page</h3>
-    <!-- Create Employee Form -->
-    <form name="create" method="post" action="http://localhost:8080/Employee/Employee">
-        <h4>Create Employee</h4>
+    <h3>user Management Page</h3>
+    <!-- Create user Form -->
+    <form name="create" method="post" action="http://localhost:8090/User/User">
+        <h4>Create user</h4>
         <table>
+            <tr>
+                <td>Userid:</td>
+                <td><input type="text" name="userid"></td>
+            </tr>
             <tr>
                 <td>Username:</td>
                 <td><input type="text" name="username"></td>
             </tr>
             <tr>
+                <td>Department:</td>
+                <td><input type="text" name="department"></td>
+ </tr>
+            
+                <tr>
+                    <td>Mail:</td>
+                    <td><input type="text" name="mail"></td>
+                </tr>
+                <tr>                   <td>Section</td>
+                    <td><input type="text" name="section"></td>
+                </tr>
                 <td>Salary:</td>
                 <td><input type="text" name="salary"></td>
-            </tr>
+            
         </table>
         <input type="submit" value="Create">
     </form>
     <br/>
-    <!-- Read Employee Form -->
-    <form name="read" method="get" action="http://localhost:8080/Employee/Employee">
-        <h4>Read Employee</h4>
+    <!-- Read user Form -->
+    <form name="read" method="get" action="http://localhost:8090/User/User">
+        <h4>Read user</h4>
         <table>
             <tr>
                 <td>Username:</td>
-                <td><input type="text" name="username"></td>
+                <td><input type="text" name="department"></td>
             </tr>
         </table>
         <input type="submit" value="Read">
     </form>
     <br/>
-    <!-- Update Employee Form -->
-    <form name="update" method="post" action="http://localhost:8080/Employee/Employee" onsubmit="return confirm('Are you sure you want to update?')">
+    <!-- Update user Form -->
+    <form name="update" method="post" action="http://localhost:8090/User/User" onsubmit="return confirm('Are you sure you want to update?')">
         <input type="hidden" name="_method" value="put">
-        <h4>Update Employee</h4>
+        <h4>Update user</h4>
         <table>
             <tr>
                 <td>Username:</td>
@@ -51,10 +66,10 @@
         <input type="submit" value="Update">
     </form>
     <br/>
-    <!-- Delete Employee Form -->
-    <form name="delete" method="post" action="http://localhost:8080/Employee/Employee" onsubmit="return confirm('Are you sure you want to delete?')">
+    <!-- Delete user Form -->
+    <form name="delete" method="post" action="http://localhost:8090/User/User" onsubmit="return confirm('Are you sure you want to delete?')">
         <input type="hidden" name="_method" value="delete">
-        <h4>Delete Employee</h4>
+        <h4>Delete user</h4>
         <table>
             <tr>
                 <td>Username:</td>

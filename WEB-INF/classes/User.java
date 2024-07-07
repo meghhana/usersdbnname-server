@@ -3,27 +3,28 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
 
-public class Employee extends HttpServlet {
+public class User extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
-        String username = req.getParameter("username");
+        String department = req.getParameter("department");
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb", "root", "root");
 
-            String query = "SELECT salary FROM employee WHERE name = ?";
+            String query = "SELECT * FROM users WHERE  department= ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1, username);
+            pst.setString(1, department);
 
             ResultSet rs = pst.executeQuery();
+            System.out.println(rs);
             if (rs.next()) {
-                out.println("Salary: " + rs.getObject(1));
+                out.println(rs.getObject(2));
             } else {
-                out.println("Employee not found");
+                out.println("user not found");
             }
             con.close();
         } catch (Exception e) {
@@ -48,32 +49,41 @@ public class Employee extends HttpServlet {
 
         // Handle POST request (create operation)
         String username = req.getParameter("username");
+        String userid = req.getParameter("userid");
+        String department = req.getParameter("department");
+        String section = req.getParameter("section");
+        String mail = req.getParameter("mail");
+
         String salary = req.getParameter("salary");
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb", "root", "root");
 
-            // Check if the employee already exists
-            String checkQuery = "SELECT * FROM employee WHERE name = ?";
+            // Check if the user already exists
+            String checkQuery = "SELECT * FROM users WHERE department = ?";
             PreparedStatement checkPst = con.prepareStatement(checkQuery);
-            checkPst.setString(1, username);
+            checkPst.setString(1, department);
             ResultSet checkRs = checkPst.executeQuery();
 
             if (checkRs.next()) {
-                out.println("Employee already exists");
+                out.println("user already exists");
             } else {
-                // Insert new employee
-                String insertQuery = "INSERT INTO employee (name, salary) VALUES (?, ?)";
+                // Insert new user
+                String insertQuery = "INSERT INTO users (userid,username,department,section,mail,salary ) VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(insertQuery);
-                pst.setString(1, username);
-                pst.setString(2, salary);
+                pst.setString(1, userid);
+                pst.setString(2, username);
+                pst.setString(3, department);
+                pst.setString(4, section);
+                pst.setString(5, mail);
+                pst.setString(6, salary);
 
                 int rows = pst.executeUpdate();
                 if (rows > 0) {
-                    out.println("Employee created successfully");
+                    out.println("user created successfully");
                 } else {
-                    out.println("Error creating employee");
+                    out.println("Error creating user");
                 }
             }
             con.close();
@@ -93,16 +103,16 @@ public class Employee extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb", "root", "root");
 
-            String updateQuery = "UPDATE employee SET salary = ? WHERE name = ?";
+            String updateQuery = "UPDATE users SET salary = ? WHERE username = ?";
             PreparedStatement pst = con.prepareStatement(updateQuery);
             pst.setString(1, salary);
             pst.setString(2, username);
 
             int rows = pst.executeUpdate();
             if (rows > 0) {
-                out.println("Employee updated successfully");
+                out.println("user updated successfully");
             } else {
-                out.println("Error updating employee or employee does not exist");
+                out.println("Error updating user or user does not exist");
             }
             con.close();
         } catch (Exception e) {
@@ -120,15 +130,15 @@ public class Employee extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb", "root", "root");
 
-            String deleteQuery = "DELETE FROM employee WHERE name = ?";
+            String deleteQuery = "DELETE FROM users WHERE username = ?";
             PreparedStatement pst = con.prepareStatement(deleteQuery);
             pst.setString(1, username);
 
             int rows = pst.executeUpdate();
             if (rows > 0) {
-                out.println("Employee deleted successfully");
+                out.println("user deleted successfully");
             } else {
-                out.println("Error deleting employee or employee does not exist");
+                out.println("Error deleting user or user does not exist");
             }
             con.close();
         } catch (Exception e) {

@@ -1,15 +1,15 @@
 <web-app>
     <servlet>
-        <servlet-name>Employee</servlet-name>
-        <servlet-class>Employee</servlet-class>
+        <servlet-name>User</servlet-name>
+        <servlet-class>User</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Employee</servlet-name>
-        <url-pattern>/Employee/*</url-pattern>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Employee</servlet-name>
-        <url-pattern>/Employee</url-pattern>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User</url-pattern>
     </servlet-mapping>
 </web-app>
 
